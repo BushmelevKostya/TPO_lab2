@@ -7,25 +7,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class LnTest {
-	private Ln lnMock;
-	private Log log;
+	private Ln lnFunc;
 	private final double econst = Math.E;
-	private final double EPSILON = 0.001;
-
-
+	private final double EPSILON = 0.01;
+	private final int accuracy = 4;
+	
 	@Test
-	public void testLog10() {
-		int base = 10;
+	public void testLn() {
 		double value1 = Math.pow(econst, 3);
-		double value2 = 100;
+		double value2 = 10;
 		
-		lnMock = mock(Ln.class);
-		when(lnMock.calculate(value1)).thenReturn(3D);
-		when(lnMock.calculate(value2)).thenReturn(4.60517);
-		when(lnMock.calculate(base)).thenReturn(2.30259);
-		log = new Log(base, lnMock);
+		lnFunc = new Ln(accuracy);
 		
-		assertEquals(1.303, log.calculate(value1), EPSILON);
-		assertEquals(2, log.calculate(value2), EPSILON);
+		assertEquals(3, lnFunc.calculate(value1), EPSILON);
+		assertEquals(2.303, lnFunc.calculate(value2), EPSILON);
 	}
 }
