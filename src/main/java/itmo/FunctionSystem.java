@@ -1,6 +1,5 @@
 package itmo;
 
-import itmo.logarithm.Ln;
 import itmo.logarithm.Log;
 
 import static java.lang.Math.pow;

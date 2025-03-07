@@ -11,7 +11,7 @@ public class FunctionSystemTest {
 	FunctionSystem functionSystem;
 	private final double econst = Math.E;
 	private final double EPSILON = 0.1;
-	private final int accuracy = 4;
+	private final int accuracy = 7;
 	
 	@Test
 	public void testFunctionSystemLogAndLnMock() {
@@ -56,6 +56,25 @@ public class FunctionSystemTest {
 		Log log10Func = new Log(base1, lnMock);
 		Log log3Func = new Log(base2, lnMock);
 		Log log2Func = new Log(base3, lnMock);
+		
+		assertEquals(38895.1454524, functionSystem.calculate(value1, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(3542.2961591, functionSystem.calculate(value2, log10Func, log3Func, log2Func), EPSILON);
+	}
+	
+	@Test
+	public void testFunctionSystem() {
+		functionSystem = new FunctionSystem();
+		
+		double value1 = Math.pow(econst, 3);
+		double value2 = 10;
+		int base1 = 10;
+		int base2 = 3;
+		int base3 = 2;
+		
+		Ln lnFunc = new Ln(accuracy);
+		Log log10Func = new Log(base1, lnFunc);
+		Log log3Func = new Log(base2, lnFunc);
+		Log log2Func = new Log(base3, lnFunc);
 		
 		assertEquals(38895.1454524, functionSystem.calculate(value1, log10Func, log3Func, log2Func), EPSILON);
 		assertEquals(3542.2961591, functionSystem.calculate(value2, log10Func, log3Func, log2Func), EPSILON);

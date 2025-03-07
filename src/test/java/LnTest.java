@@ -1,16 +1,13 @@
 import itmo.logarithm.Ln;
-import itmo.logarithm.Log;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class LnTest {
 	private Ln lnFunc;
 	private final double econst = Math.E;
-	private final double EPSILON = 0.01;
-	private final int accuracy = 4;
+	private final double EPSILON = 0.0001;
+	private final int accuracy = 6;
 	
 	@Test
 	public void testLn() {
@@ -20,6 +17,6 @@ public class LnTest {
 		lnFunc = new Ln(accuracy);
 		
 		assertEquals(3, lnFunc.calculate(value1), EPSILON);
-		assertEquals(2.303, lnFunc.calculate(value2), EPSILON);
+		assertEquals(2.30259, lnFunc.calculate(value2), EPSILON);
 	}
 }
