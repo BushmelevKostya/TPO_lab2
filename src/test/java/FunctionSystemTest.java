@@ -1,6 +1,10 @@
 import itmo.FunctionSystem;
 import itmo.logarithm.Ln;
 import itmo.logarithm.Log;
+import itmo.trigonometry.Cos;
+import itmo.trigonometry.Cot;
+import itmo.trigonometry.Sec;
+import itmo.trigonometry.Sin;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +18,7 @@ public class FunctionSystemTest {
 	private final int accuracy = 7;
 	
 	@Test
-	public void testFunctionSystemLogAndLnMock() {
+	public void testFunctionSystemLogMock() {
 		functionSystem = new FunctionSystem();
 
 		double value1 = Math.pow(econst, 3);
@@ -32,12 +36,12 @@ public class FunctionSystemTest {
 		when(log2Func.calculate(value2)).thenReturn(3.32192);
 		
 		
-		assertEquals(38895.1454524, functionSystem.calculate(value1, log10Func, log3Func, log2Func), EPSILON);
-		assertEquals(3542.2961591, functionSystem.calculate(value2, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(38895.1454524, functionSystem.calculatePositive(value1, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(3542.2961591, functionSystem.calculatePositive(value2, log10Func, log3Func, log2Func), EPSILON);
 	}
 	
 	@Test
-	public void testFunctionSystemLogMock() {
+	public void testFunctionSystemLnMock() {
 		functionSystem = new FunctionSystem();
 		
 		Ln lnMock = mock(Ln.class);
@@ -57,12 +61,12 @@ public class FunctionSystemTest {
 		Log log3Func = new Log(base2, lnMock);
 		Log log2Func = new Log(base3, lnMock);
 		
-		assertEquals(38895.1454524, functionSystem.calculate(value1, log10Func, log3Func, log2Func), EPSILON);
-		assertEquals(3542.2961591, functionSystem.calculate(value2, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(38895.1454524, functionSystem.calculatePositive(value1, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(3542.2961591, functionSystem.calculatePositive(value2, log10Func, log3Func, log2Func), EPSILON);
 	}
 	
 	@Test
-	public void testFunctionSystem() {
+	public void testFunctionSystemPositive() {
 		functionSystem = new FunctionSystem();
 		
 		double value1 = Math.pow(econst, 3);
@@ -76,7 +80,64 @@ public class FunctionSystemTest {
 		Log log3Func = new Log(base2, lnFunc);
 		Log log2Func = new Log(base3, lnFunc);
 		
-		assertEquals(38895.1454524, functionSystem.calculate(value1, log10Func, log3Func, log2Func), EPSILON);
-		assertEquals(3542.2961591, functionSystem.calculate(value2, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(38895.1454524, functionSystem.calculatePositive(value1, log10Func, log3Func, log2Func), EPSILON);
+		assertEquals(3542.2961591, functionSystem.calculatePositive(value2, log10Func, log3Func, log2Func), EPSILON);
 	}
-}
+	
+	@Test
+	public void testFunctionSystemCotAndSecMock() {
+		functionSystem = new FunctionSystem();
+		
+		double value1 = - Math.PI / 4;
+		double value2 = - 5 * Math.PI / 3;
+		
+		Cot cotFunc = mock(Cot.class);
+		Sec secFunc = mock(Sec.class);
+		
+		when(cotFunc.calculate(value1)).thenReturn(-1.00000);
+		when(cotFunc.calculate(value2)).thenReturn(0.57735);
+		when(secFunc.calculate(value1)).thenReturn(1.41421);
+		when(secFunc.calculate(value2)).thenReturn(2.00000);
+
+		assertEquals(-1.41421, functionSystem.calculateNegative(value1, cotFunc, secFunc), EPSILON);
+		assertEquals(1.15470, functionSystem.calculateNegative(value2, cotFunc, secFunc), EPSILON);
+	}
+	
+	@Test
+	public void testFunctionSystemCosAnsSinMock() {
+		functionSystem = new FunctionSystem();
+		
+		Cos cosMock = mock(Cos.class);
+		Sin sinMock = mock(Sin.class);
+		
+		double value1 = - Math.PI / 4;
+		double value2 = - 5 * Math.PI / 3;
+		
+		when(cosMock.calculate(value1)).thenReturn(0.70711);
+		when(cosMock.calculate(value2)).thenReturn(0.50000);
+		when(sinMock.calculate(value1)).thenReturn(-0.70711);
+		when(sinMock.calculate(value2)).thenReturn(0.86603);
+
+		Cot cotFunc = new Cot(sinMock, cosMock);
+		Sec secFunc = new Sec(cosMock);
+		
+		assertEquals(-1.41421, functionSystem.calculateNegative(value1, cotFunc, secFunc), EPSILON);
+		assertEquals(1.15470, functionSystem.calculateNegative(value2, cotFunc, secFunc), EPSILON);
+	}
+	
+	@Test
+	public void testFunctionSystemNegative() {
+		functionSystem = new FunctionSystem();
+		
+		Cos cosFunc = new Cos();
+		Sin sinFunc = new Sin();
+		
+		double value1 = - Math.PI / 4;
+		double value2 = - 5 * Math.PI / 3;
+		
+		Cot cotFunc = new Cot(sinFunc, cosFunc);
+		Sec secFunc = new Sec(cosFunc);
+		
+		assertEquals(-1.41421, functionSystem.calculateNegative(value1, cotFunc, secFunc), EPSILON);
+		assertEquals(1.15470, functionSystem.calculateNegative(value2, cotFunc, secFunc), EPSILON);
+	}}
