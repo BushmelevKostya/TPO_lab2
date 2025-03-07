@@ -129,8 +129,8 @@ public class FunctionSystemTest {
 	public void testFunctionSystemNegative() {
 		functionSystem = new FunctionSystem();
 		
-		Cos cosFunc = new Cos();
-		Sin sinFunc = new Sin();
+		Sin sinFunc = new Sin(accuracy);
+		Cos cosFunc = new Cos(sinFunc);
 		
 		double value1 = - Math.PI / 4;
 		double value2 = - 5 * Math.PI / 3;

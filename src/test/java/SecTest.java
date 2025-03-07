@@ -14,6 +14,7 @@ public class SecTest {
 	private Cos cosMock;
 	private Sec secFunc;
 	private final double EPSILON = 0.001;
+	private final int accuracy = 5;
 	
 	
 	@Test
@@ -37,7 +38,8 @@ public class SecTest {
 		double value1 = - Math.PI / 4;
 		double value2 = - 5 * Math.PI / 3;
 		
-		Cos cosFunc = new Cos();
+		Sin sinFunc = new Sin(accuracy);
+		Cos cosFunc = new Cos(sinFunc);
 		
 		secFunc = new Sec(cosFunc);
 		

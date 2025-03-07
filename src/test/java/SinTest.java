@@ -16,7 +16,7 @@ public class SinTest {
 		double value1 = - Math.PI / 4;
 		double value2 = - 5 * Math.PI / 3;
 		
-		Sin sinFunc = new Sin();
+		Sin sinFunc = new Sin(accuracy);
 		
 		assertEquals(-0.70711, sinFunc.calculate(value1), EPSILON);
 		assertEquals(0.86603, sinFunc.calculate(value2), EPSILON);

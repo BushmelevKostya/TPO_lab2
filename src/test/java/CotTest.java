@@ -14,6 +14,7 @@ public class CotTest {
 	private Cos cosMock;
 	private Cot cotFunc;
 	private final double EPSILON = 0.001;
+	private final int accuracy = 5;
 	
 	
 	@Test
@@ -40,8 +41,8 @@ public class CotTest {
 		double value1 = - Math.PI / 4;
 		double value2 = - 5 * Math.PI / 3;
 		
-		Sin sinFunc = new Sin();
-		Cos cosFunc = new Cos();
+		Sin sinFunc = new Sin(accuracy);
+		Cos cosFunc = new Cos(sinFunc);
 		
 		cotFunc = new Cot(sinFunc, cosFunc);
 		
