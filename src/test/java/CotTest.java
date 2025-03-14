@@ -6,6 +6,7 @@ import itmo.trigonometry.Sin;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -40,6 +41,7 @@ public class CotTest {
 	public void testCot() {
 		double value1 = - Math.PI / 4;
 		double value2 = - 5 * Math.PI / 3;
+		double value3 = Math.PI;
 		
 		Sin sinFunc = new Sin(accuracy);
 		Cos cosFunc = new Cos(sinFunc);
@@ -48,5 +50,6 @@ public class CotTest {
 		
 		assertEquals(-1.00000, cotFunc.calculate(value1), EPSILON);
 		assertEquals(0.57735, cotFunc.calculate(value2), EPSILON);
+		assertThrows(ArithmeticException.class, () -> cotFunc.calculate(value3)); //Проверка критической точки sin(x) = 0
 	}
 }

@@ -11,7 +11,7 @@ public class Cos {
 	
 	public double calculate(double x) {
 		double sinValue = sinFunc.calculate(x);
-		double cosValue = sqrt(1 - pow(sinValue, 2));
+		double cosValue = sqrt(Math.abs(1 - pow(sinValue, 2)));
 		
 		if ((x % (2 * Math.PI)) > Math.PI / 2 && (x % (2 * Math.PI)) < 3 * Math.PI / 2) {
 			cosValue = -cosValue;
